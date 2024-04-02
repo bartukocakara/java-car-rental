@@ -8,7 +8,7 @@ import Model.Database;
 import Model.Operation;
 import Model.User;
 
-public class AddNewAdmin implements Operation {
+public class AddNewClient implements Operation {
     
     @Override
     public void operation(Database database, Scanner s, User user) {
@@ -32,7 +32,7 @@ public class AddNewAdmin implements Operation {
             confirmPassword = s.next();
         }
 
-        int accType = 1;
+        int accType = 0;
 
         try {
             ResultSet rs = database.getStatement().executeQuery("SELECT COUNT(*);");
@@ -43,7 +43,7 @@ public class AddNewAdmin implements Operation {
                             + "VALUES ('"+ID+"','"+firstName+"','"+lastName+"','"+email+"','"+password+"','"+phoneNumber+"',"
                             +"'"+phoneNumber+"','"+accType+"');";
             database.getStatement().execute(insert);
-            System.out.println("Client account created successfully\n");
+            System.out.println("Admin account created successfully\n");
         } catch (SQLException e) {
             e.printStackTrace();
         }
