@@ -10,15 +10,20 @@ import Model.Client;
 import Model.Database;
 import Model.User;
 
-public class Login {
-    public Login(Database database, Scanner s){
-        System.out.println("Enter email");
+public class Main {
+
+    public static void main(String[] args) {
+        Database database = new Database();
+        Scanner s = new Scanner(System.in);
+
+        System.out.println("Welcome to Car Rental System");
+        System.out.println("Enter email:\n(-1) to create new account");
         String email = s.next();
         System.out.println("Enter password");
         String password = s.next();
         ArrayList<User> users = new ArrayList<>();
         try {
-            String select = "SELECT * FROM `users`";
+            String select = "SELECT * FROM `users`;";
             ResultSet rs = database.getStatement().executeQuery(select);
             while (rs.next()){
                 User user;
@@ -42,10 +47,9 @@ public class Login {
                 user.setID(ID);
                 user.setFirstName(firstName);
                 user.setLastName(lastName);
-                user.setEmail(email);
+                user.setEmail(em);
                 user.setPhoneNumber(phoneNumber);
-                user.setPhoneNumber(phoneNumber);
-                user.setPassword(password);
+                user.setPassword(pass);
                 users.add(user);
             }
         } catch (SQLException e) {

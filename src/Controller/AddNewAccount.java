@@ -8,8 +8,13 @@ import Model.Database;
 import Model.Operation;
 import Model.User;
 
-public class AddNewClient implements Operation {
+public class AddNewAccount implements Operation {
     
+    private int accType;
+
+    public AddNewAccount(int accType) {
+        this.accType = accType;
+    }
     @Override
     public void operation(Database database, Scanner s, User user) {
         System.out.println("Enter FirstName");
@@ -32,7 +37,6 @@ public class AddNewClient implements Operation {
             confirmPassword = s.next();
         }
 
-        int accType = 0;
 
         try {
             ResultSet rs = database.getStatement().executeQuery("SELECT COUNT(*);");
@@ -43,7 +47,7 @@ public class AddNewClient implements Operation {
                             + "VALUES ('"+ID+"','"+firstName+"','"+lastName+"','"+email+"','"+password+"','"+phoneNumber+"',"
                             +"'"+phoneNumber+"','"+accType+"');";
             database.getStatement().execute(insert);
-            System.out.println("Admin account created successfully\n");
+            System.out.println("Account created successfully\n");
         } catch (SQLException e) {
             e.printStackTrace();
         }
