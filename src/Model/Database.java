@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Database {
-    private String user = "user";
-    private String password = "123456";
-    private String url = "jdbc:mysql://localhost/carrentalsystem";
+    private String user = "root";
+    private String password = "";
+    private String url = "jdbc:mysql://localhost:3306/carrentalsystem";
     private Statement statement;
 
     public Database() {
