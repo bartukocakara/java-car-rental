@@ -39,15 +39,23 @@ public class Main {
                 String phoneNumber = rs.getString("PhoneNumber");
                 String pass = rs.getString("Password");
                 int type = rs.getInt("Type");
-                switch (type){
-                case 0:
+                if (type == 0) {
                     user = new Client();
-                    break;
-                case 1:
+                } else if (type == 1) {
                     user = new Admin();
-                    break;
-                default:
-                    user = new Client();
+                } else {
+                    System.out.println("Account doesn't exists");
+                    return ;
+                }
+                switch (type){
+                    case 0:
+                        user = new Client();
+                        break;
+                    case 1:
+                        user = new Admin();
+                        break;
+                    default:
+                        user = new Client();
                 }
                 user.setID(ID);
                 user.setFirstName(firstName);
