@@ -54,8 +54,7 @@ public class AddNewAccount implements Operation {
             ResultSet rs = database.getStatement().executeQuery("SELECT COUNT(*);");
             rs.next();
 
-            String insert = "INSERT INTO `users` (`FirstName`, `LastName`, `Email`, `Password`, `PhoneNumber`, `Type`)"
-            + "VALUES ('"+firstName+"','"+lastName+"','"+email+"','"+password+"','"+phoneNumber+"','"+accType+"');";
+            String insert = "INSERT INTO `users` (`FirstName`, `LastName`, `Email`, `Password`, `PhoneNumber`, `Type`)" + "VALUES ('"+firstName+"','"+lastName+"','"+email+"','"+password+"','"+phoneNumber+"','"+accType+"');";
             database.getStatement().execute(insert);
             logger.info("Account created successfully\n");
         } catch (SQLException e) {

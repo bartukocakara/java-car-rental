@@ -3,10 +3,11 @@ package Model;
 import java.util.Scanner;
 
 import Controller.AddNewAccount;
+import Controller.AddNewCar;
 
 public class Admin extends User {
 
-    private Operation[] operations = new Operation[] { new AddNewAccount(1) };
+    private Operation[] operations = new Operation[] { new AddNewCar(), new AddNewAccount(1) };
 
     public Admin(){
         super();
@@ -22,6 +23,7 @@ public class Admin extends User {
         System.out.println("7. Quit\n");
 
         int i = s.nextInt();
-        operations[i].operation(database, s, this);
+        operations[i-1].operation(database, s, this);
+        showList(database, s);
     }
 }

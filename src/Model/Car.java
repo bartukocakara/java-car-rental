@@ -6,7 +6,7 @@ public class Car {
     private String color;
     private int year;
     private double price;
-    private boolean available;
+    private boolean available; // 0 available , 1 Rented, 2 Deleted
 
     public Car() { }
 
