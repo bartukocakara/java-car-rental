@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import Model.Admin;
 import Model.Client;
@@ -11,6 +12,7 @@ import Model.Database;
 import Model.User;
 
 public class Main {
+    Logger logger = Logger.getLogger(getClass().getName());
 
     public static void main(String[] args) {
         Database database = new Database();
@@ -19,6 +21,10 @@ public class Main {
         System.out.println("Welcome to Car Rental System");
         System.out.println("Enter email:\n(-1) to create new account");
         String email = s.next();
+        if(email.equals("-1")) {
+            new AddNewAccount(0).operation(database, s, null);
+            return;
+        }
         System.out.println("Enter password");
         String password = s.next();
         ArrayList<User> users = new ArrayList<>();
@@ -31,7 +37,6 @@ public class Main {
                 String firstName = rs.getString("FirstName");
                 String lastName = rs.getString("LastName");
                 String phoneNumber = rs.getString("PhoneNumber");
-                String em = rs.getString("Email");
                 String pass = rs.getString("Password");
                 int type = rs.getInt("Type");
                 switch (type){
@@ -47,7 +52,7 @@ public class Main {
                 user.setID(ID);
                 user.setFirstName(firstName);
                 user.setLastName(lastName);
-                user.setEmail(em);
+                user.setEmail(email);
                 user.setPhoneNumber(phoneNumber);
                 user.setPassword(pass);
                 users.add(user);

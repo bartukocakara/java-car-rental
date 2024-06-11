@@ -2,14 +2,17 @@ package Controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import Model.Database;
 import Model.Operation;
 import Model.User;
 
 public class AddNewAccount implements Operation {
-    
+    Logger logger = Logger.getLogger(getClass().getName());
+
     private int accType;
 
     public AddNewAccount(int accType) {
@@ -17,37 +20,44 @@ public class AddNewAccount implements Operation {
     }
     @Override
     public void operation(Database database, Scanner s, User user) {
-        System.out.println("Enter FirstName");
+        logger.info("Enter FirstName");
         String firstName = s.next();
-        System.out.println("Enter Last Name");
+        logger.info("Enter Last Name");
         String lastName = s.next();
-        System.out.println("Enter Email");
+        logger.info("Enter Email");
         String email = s.next();
-        System.out.println("Enter phone number");
+        logger.info("Enter phone number");
         String phoneNumber = s.next();
-        System.out.println("Enter password");
+        logger.info("Enter password");
         String password = s.next();
-        System.out.println("Confirm Password");
+        logger.info("Confirm Password");
         String confirmPassword = s.next();
-        while(password.equals(confirmPassword)) {
-            System.out.println("Password doesn't match");
-            System.out.println("Enter password");
+        while(!password.equals(confirmPassword)) {
+            logger.info("Password doesn't match");
+            logger.info("Enter password");
             password = s.next();
-            System.out.println("Confirm Password");
+            logger.info("Confirm Password");
             confirmPassword = s.next();
         }
 
 
         try {
+            ArrayList<String> emails = new ArrayList<>();
+            ResultSet rs0 = database.getStatement().executeQuery("SELECT `Email` FROM `users`");
+            while (rs0.next()){
+                emails.add(rs0.getString("Email"));
+            }
+            if(emails.contains(email)) {
+                logger.info("This email used before");
+                return;
+            }
             ResultSet rs = database.getStatement().executeQuery("SELECT COUNT(*);");
             rs.next();
-            int ID = rs.getInt("COUNT(*)") - 1;
 
-            String insert = "INSERT INTO `users` (`ID`, `FirstName`, `LastName`, `Email`, `Password`, `PhoneNumber`)"
-                            + "VALUES ('"+ID+"','"+firstName+"','"+lastName+"','"+email+"','"+password+"','"+phoneNumber+"',"
-                            +"'"+phoneNumber+"','"+accType+"');";
+            String insert = "INSERT INTO `users` (`FirstName`, `LastName`, `Email`, `Password`, `PhoneNumber`, `Type`)"
+            + "VALUES ('"+firstName+"','"+lastName+"','"+email+"','"+password+"','"+phoneNumber+"','"+accType+"');";
             database.getStatement().execute(insert);
-            System.out.println("Account created successfully\n");
+            logger.info("Account created successfully\n");
         } catch (SQLException e) {
             e.printStackTrace();
         }
