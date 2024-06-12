@@ -1,4 +1,5 @@
 package Model;
+
 public class Car {
     private int ID;
     private String brand;
@@ -6,7 +7,7 @@ public class Car {
     private String color;
     private int year;
     private double price;
-    private boolean available; // 0 available , 1 Rented, 2 Deleted
+    private int available; // 0 available , 1 Rented, 2 Deleted
 
     public Car() { }
 
@@ -16,6 +17,10 @@ public class Car {
 
     public String getBrand() {
         return brand;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public void setBrand(String brand) {
@@ -56,12 +61,12 @@ public class Car {
         this.price = price;
     }
 
-    public boolean getAvailable()
+    public int getAvailable()
     {
         return available;
     }
 
-    public void setAvailable(boolean available){
+    public void setAvailable(int available){
         this.available = available;
     }
 }

@@ -4,10 +4,17 @@ import java.util.Scanner;
 
 import Controller.AddNewAccount;
 import Controller.AddNewCar;
+import Controller.UpdateCar;
+import Controller.ViewCars;
 
 public class Admin extends User {
 
-    private Operation[] operations = new Operation[] { new AddNewCar(), new AddNewAccount(1) };
+    private Operation[] operations = new Operation[] { 
+        new AddNewCar(), 
+        new ViewCars(),  
+        new AddNewAccount(1),
+        new UpdateCar(),
+    };
 
     public Admin(){
         super();
